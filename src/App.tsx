@@ -1,11 +1,11 @@
-import Button from './components/Button';
+import Formulario from './components/Formulario';
 
 function App() {
   return (
     <div className="App">
       Hello word!
 
-      <Button />
+      <Formulario />
     </div>
   );
 }
