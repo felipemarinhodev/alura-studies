@@ -1,11 +1,12 @@
 import Formulario from './components/Formulario';
+import List from './components/List';
 
 function App() {
   return (
     <div className="App">
-      Hello word!
-
       <Formulario />
+
+      <List />
     </div>
   );
 }
