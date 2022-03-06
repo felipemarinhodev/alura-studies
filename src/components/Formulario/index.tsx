@@ -4,17 +4,19 @@ import Button from '../Button';
 import style from './Formulario.module.scss';
 
 import { ITarefa } from '../../types/tarefa';
+const NOVA_TAREFA = {
+  tarefa: '',
+  tempo: '00:00',
+};
 class Formulario extends React.Component<{
   setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>>;
 }> {
-  state = {
-    tarefa: '',
-    tempo: '00:00',
-  };
+  state = NOVA_TAREFA;
 
   adicionarTarefa(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     this.props.setTarefas((tarefasAntigas) => [...tarefasAntigas, {...this.state}])
+    this.setState(NOVA_TAREFA)
   }
 
   render(): React.ReactNode {
