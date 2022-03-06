@@ -1,4 +1,6 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 import Button from '../Button';
 
 import style from './Formulario.module.scss';
@@ -15,8 +17,16 @@ class Formulario extends React.Component<{
 
   adicionarTarefa(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    this.props.setTarefas((tarefasAntigas) => [...tarefasAntigas, {...this.state}])
-    this.setState(NOVA_TAREFA)
+    this.props.setTarefas((tarefasAntigas) => [
+      ...tarefasAntigas,
+      {
+        ...this.state,
+        selecionado: false,
+        completado: false,
+        id: uuidv4()
+      },
+    ]);
+    this.setState(NOVA_TAREFA);
   }
 
   render(): React.ReactNode {
