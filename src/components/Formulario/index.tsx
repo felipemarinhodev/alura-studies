@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import Button from '../Button';
@@ -6,68 +6,59 @@ import Button from '../Button';
 import style from './Formulario.module.scss';
 
 import { ITarefa } from '../../types/tarefa';
-const NOVA_TAREFA = {
-  tarefa: '',
-  tempo: '00:00',
-};
-class Formulario extends React.Component<{
+interface FormularioProps {
   setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>>;
-}> {
-  state = NOVA_TAREFA;
+}
+function Formulario({ setTarefas }: FormularioProps) {
+  const [tarefa, setTarefa] = useState('');
+  const [tempo, setTempo] = useState('00:00');
 
-  adicionarTarefa(event: React.FormEvent<HTMLFormElement>) {
+  function adicionarTarefa(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    this.props.setTarefas((tarefasAntigas) => [
+    setTarefas((tarefasAntigas) => [
       ...tarefasAntigas,
       {
-        ...this.state,
+        tarefa,
+        tempo,
         selecionado: false,
         completado: false,
-        id: uuidv4()
+        id: uuidv4(),
       },
     ]);
-    this.setState(NOVA_TAREFA);
+    setTarefa('');
+    setTempo('00:00');
   }
 
-  render(): React.ReactNode {
-    return (
-      <form
-        className={style.novaTarefa}
-        onSubmit={this.adicionarTarefa.bind(this)}
-      >
-        <div className={style.inputContainer}>
-          <label htmlFor="tarefa">Adicione um novo estudo</label>
-          <input
-            type="text"
-            name="tarefa"
-            id="tarefa"
-            placeholder="O que você quer estudar"
-            value={this.state.tarefa}
-            onChange={(event) =>
-              this.setState({ ...this.state, tarefa: event.target.value })
-            }
-            required
-          ></input>
-        </div>
-        <div className={style.inputContainer}>
-          <label htmlFor="tempo">Tempo</label>
-          <input
-            type="time"
-            name="tarefa"
-            id="tarefa"
-            step="1"
-            value={this.state.tempo}
-            onChange={(event) =>
-              this.setState({ ...this.state, tempo: event.target.value })
-            }
-            min="00:00:00"
-            max="01:30:00"
-          ></input>
-        </div>
-        <Button type="submit">Adicionar</Button>
-      </form>
-    );
-  }
+  return (
+    <form className={style.novaTarefa} onSubmit={adicionarTarefa}>
+      <div className={style.inputContainer}>
+        <label htmlFor="tarefa">Adicione um novo estudo</label>
+        <input
+          type="text"
+          name="tarefa"
+          id="tarefa"
+          placeholder="O que você quer estudar"
+          value={tarefa}
+          onChange={(event) => setTarefa(event.target.value)}
+          required
+        ></input>
+      </div>
+      <div className={style.inputContainer}>
+        <label htmlFor="tempo">Tempo</label>
+        <input
+          type="time"
+          name="tarefa"
+          id="tarefa"
+          step="1"
+          value={tempo}
+          onChange={(event) => setTempo(event.target.value)}
+          min="00:00:00"
+          max="01:30:00"
+        ></input>
+      </div>
+      <Button type="submit">Adicionar</Button>
+    </form>
+  );
 }
 
 export default Formulario;

@@ -8,7 +8,7 @@ import style from './Timer.module.scss';
 
 interface TimerProps {
   selecionado: ITarefa | undefined;
-  finalizarTarefas: () => void
+  finalizarTarefas: () => void;
 }
 
 export default function Timer({ selecionado, finalizarTarefas }: TimerProps) {
@@ -26,13 +26,15 @@ export default function Timer({ selecionado, finalizarTarefas }: TimerProps) {
         setTempo(contador - 1);
         return regressiva(contador - 1);
       }
-      finalizarTarefas()
+      finalizarTarefas();
     }, 1000);
   }
 
   return (
     <div className={style.cronometro}>
-      <p className={style.titulo}>Escolha um card e inicie o cronômetro</p>
+      <p className={style.titulo}>
+        Escolha um card e inicie o cronômetro: {selecionado?.tarefa}
+      </p>
       <div className={style.relogioWrapper}>
         <Clock tempo={tempo} />
       </div>

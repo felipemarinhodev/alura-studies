@@ -18,7 +18,8 @@ export default function Item({
       className={`${style.item} ${selecionado ? style.itemSelecionado : ''} ${
         completado ? style.itemCompletado : ''
       }`}
-      onClick={() => !completado &&
+      onClick={() =>
+        !completado &&
         selecionaTarefa({
           tarefa,
           tempo,
