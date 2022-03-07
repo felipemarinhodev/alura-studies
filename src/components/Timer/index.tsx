@@ -8,9 +8,10 @@ import style from './Timer.module.scss';
 
 interface TimerProps {
   selecionado: ITarefa | undefined;
+  finalizarTarefas: () => void
 }
 
-export default function Timer({ selecionado }: TimerProps) {
+export default function Timer({ selecionado, finalizarTarefas }: TimerProps) {
   const [tempo, setTempo] = useState<number>();
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function Timer({ selecionado }: TimerProps) {
         setTempo(contador - 1);
         return regressiva(contador - 1);
       }
+      finalizarTarefas()
     }, 1000);
   }
 
